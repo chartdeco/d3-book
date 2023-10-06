@@ -129,19 +129,30 @@
 					//
 					//Exercise: Modify this code to add a new label each time a new bar is added!
 					//
-					svg.selectAll("text")
-					   .data(dataset)
-					   .transition()
-					   .duration(500)
-					   .text(function(d) {
+					var newLabels = svg.selectAll("text")
+					   					.data(dataset)
+						
+					console.log(dataset)
+					
+					newLabels.enter()
+						.append("text")
+						.text(function(d) {
 					   		return d;
 					   })
+						.attr("x", w)
+						.attr("y",d=> h - yScale(d))
+						.attr("font-family", "sans-serif")
+						.attr("font-size", "11px")
+						.attr("fill", "white")
+						.merge(newLabels)
+						.transition()
+					   .duration(500)
 					   .attr("x", function(d, i) {
 							return xScale(i) + xScale.bandwidth() / 2;
 					   })
 					   .attr("y", function(d) {
 							return h - yScale(d) + 14;
-					   });
+					   })
 
 				});
 
